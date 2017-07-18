@@ -4,11 +4,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 
-
+const resolve = (file) => path.resolve(__dirname, file)
 var config = {
   entry: {
     pages: './src',
-    element: ["element-ui", path.resolve("./theme.css")]
+    element: ["element-ui", resolve("./theme/index.css")]
   },
   output:  {
     filename: '[name].bundle.js',
@@ -20,31 +20,58 @@ var config = {
   //   contentBase: path.resolve(__dirname, 'dist'),
   //   publicPath: '/'
   // },
+  // module: {
+  //   loaders: [{
+  //     test: /\.vue$/,
+  //     loader: "vue-loader",
+  //     options: {
+  //       scss: 'style-loader!css-loader!sass-loader',
+  //       sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
+  //     }
+  //   },
+  //   {
+  //     test: /\.css$/,
+  //     loader: [ 'style-loader', 'css-loader', 'resolve-url-loader']
+  //   },{
+  //     test: /\.scss$/,
+  //     loader: ['css-loader', 'postcss-loader', 'sass-loader'],
+  //   },{
+  //       test: /\.(jpg|jpeg|png|gif|svg)$/,
+  //       loader: 'url?limit=8192&name=img/[name].[ext]',
+  //       exclude: /node_modules/
+  //     },
+  //     {
+  //       test: /\.(svg|eot|ttf|woff|woff2)\?\w+(#\w+)?$/,
+  //       loader: 'url?limit=8192&name=font/[name].[ext]',
+  //       exclude: /node_modules/
+  //     }]
+  // },
   module: {
-    loaders: [{
+    rules: [{
+      test: /\.css$/,
+      loaders: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader'],
+      exclude: /node_modules/
+    },
+    {
       test: /\.vue$/,
-      loader: "vue-loader",
+      loader: 'vue-loader',
       options: {
-        scss: 'style-loader!css-loader!sass-loader',
-        sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
+        loaders: {
+          scss: 'style-loader!css-loader!sass-loader',
+          sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
+        }
       }
     },
     {
-      test: /\.css$/,
-      loader: [ 'style-loader', 'css-loader', 'resolve-url-loader']
-    },{
-      test: /\.scss$/,
-      loader: ['css-loader', 'postcss-loader', 'sass-loader'],
-    },{
-        test: /\.(jpg|jpeg|png|gif|svg)$/,
-        loader: 'url?limit=8192&name=img/[name].[ext]',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(svg|eot|ttf|woff|woff2)\?\w+(#\w+)?$/,
-        loader: 'url?limit=8192&name=font/[name].[ext]',
-        exclude: /node_modules/
-      }]
+      test: /\.(jpg|png|gif)$/,
+      loader: 'url-loader?limit=8192'
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'fonts/[hash].[ext]'
+      }
+    }]
   },
   plugins: [
     // new CleanWebpackPlugin(['dist']),
