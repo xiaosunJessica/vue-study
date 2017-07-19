@@ -12,7 +12,7 @@ var config = {
   },
   output:  {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: resolve('./dist')
   },
   // devtool: 'inline-source-map',
   // devServer: {
@@ -20,59 +20,39 @@ var config = {
   //   contentBase: path.resolve(__dirname, 'dist'),
   //   publicPath: '/'
   // },
-  // module: {
-  //   loaders: [{
-  //     test: /\.vue$/,
-  //     loader: "vue-loader",
-  //     options: {
-  //       scss: 'style-loader!css-loader!sass-loader',
-  //       sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
-  //     }
-  //   },
-  //   {
-  //     test: /\.css$/,
-  //     loader: [ 'style-loader', 'css-loader', 'resolve-url-loader']
-  //   },{
-  //     test: /\.scss$/,
-  //     loader: ['css-loader', 'postcss-loader', 'sass-loader'],
-  //   },{
-  //       test: /\.(jpg|jpeg|png|gif|svg)$/,
-  //       loader: 'url?limit=8192&name=img/[name].[ext]',
-  //       exclude: /node_modules/
-  //     },
-  //     {
-  //       test: /\.(svg|eot|ttf|woff|woff2)\?\w+(#\w+)?$/,
-  //       loader: 'url?limit=8192&name=font/[name].[ext]',
-  //       exclude: /node_modules/
-  //     }]
-  // },
   module: {
-    rules: [{
-      test: /\.css$/,
-      loaders: ['style-loader', 'css-loader', 'resolve-url-loader', 'postcss-loader'],
-      exclude: /node_modules/
-    },
-    {
+    loaders: [{
       test: /\.vue$/,
-      loader: 'vue-loader',
+      loader: "vue-loader",
       options: {
-        loaders: {
-          scss: 'style-loader!css-loader!sass-loader',
-          sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
-        }
+        scss: 'style-loader!css-loader!sass-loader',
+        sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
       }
     },
     {
-      test: /\.(jpg|png|gif)$/,
-      loader: 'url-loader?limit=8192'
-    }, {
-      test: /\.(eot|svg|ttf|woff|woff2)$/,
-      loader: 'file-loader',
-      options: {
-        name: 'fonts/[hash].[ext]'
-      }
-    }]
+      test: /\.css$/,
+      loader: [ 'style-loader', 'css-loader', 'resolve-url-loader']
+    },{
+      test: /\.scss$/,
+      loader: ['css-loader', 'postcss-loader', 'sass-loader'],
+    },{
+        test: /\.(jpg|png|gif)$/,
+        loader: "file-loader",
+        options: {
+            name: "images/[hash].[ext]"
+        },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[hash].[ext]'
+        },
+        exclude: /node_modules/
+      }]
   },
+
   plugins: [
     // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
