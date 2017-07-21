@@ -5,16 +5,17 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 
 const resolve = (file) => path.resolve(__dirname, file)
+
 var config = {
   entry: {
-    pages: [resolve('./src'), resolve('./index.css')],
+    pages: [resolve('./src/client'), resolve('./index.css')],
     element: ["element-ui", resolve("./theme/index.css")]
   },
   output:  {
     filename: '[name].bundle.js',
     path: resolve('./dist')
   },
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   // devServer: {
   //   hot: true,
   //   contentBase: path.resolve(__dirname, 'dist'),

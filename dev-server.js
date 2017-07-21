@@ -1,15 +1,19 @@
 var express = require('express')
 var path = require('path')
 var webpack = require('webpack')
-// var proxyMiddleware = require('http-proxy-middleware')
+var history = require('connect-history-api-fallback');
+var webpackMiddleware = require('webpack-dev-middleware')
+
 var webpackConfig = require('./webpack.config.js')
 
 var app = express()
 var compiler = webpack(webpackConfig)
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  quiet: true
+
+// compile assets in-memory and serve them
+var devMiddleware = webpackMiddleware(compiler, {
+  quiet: true,
+  index: 'index.html'
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
@@ -23,5 +27,6 @@ compiler.plugin('compilation', function (compilation) {
   })
 })
 
+app.use(history())
 app.use(devMiddleware)
 app.listen(8080)
