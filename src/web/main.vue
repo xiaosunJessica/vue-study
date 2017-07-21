@@ -11,7 +11,6 @@
     <el-row class="wrapper_header" type="flex" justify="space-between">
       <el-col :span="3">
         <div class="logo">
-          
           <span>壹二商品订单中心</span>
         </div>
       </el-col>
@@ -35,8 +34,8 @@
             <el-menu-item index="OrderList">
               <router-link class="menu_link" :to="{ name: 'OrderList' }">全部订单</router-link>
             </el-menu-item>
-            <el-menu-item index="1-2">
-              <router-link class="menu_link" :to="{ name: 'OrderList' }">售后工单</router-link>
+            <el-menu-item index="ServiceTicketList">
+              <router-link class="menu_link" :to="{ name: 'ServiceTicketList' }">售后工单</router-link>
             </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="商品">
