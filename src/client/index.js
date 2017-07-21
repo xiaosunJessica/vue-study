@@ -6,7 +6,7 @@ import mock from '../mock'
 // import 'element-ui/lib/theme-default/index.css'
 
 Vue.use(ElementUI)
-Vue.use(mock)
+// Vue.use(mock)
 
 new Vue({
   el: "#app",

@@ -1,7 +1,7 @@
 <script lang="js">
   export default {
     mounted() {
-      this.$refs['container'].$el.style['min-height'] = (window.innerHeight - 60) + 'px'
+      this.$refs['container'].$el.style['min-height'] = (window.innerHeight - 60) + 'px';
     }
   }
 </script>
@@ -94,6 +94,7 @@
           .menu_link {
             color: #FFFFFF;
             text-decoration: none;
+            display: block;
           }
         }
       }
