@@ -7,7 +7,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 const resolve = (file) => path.resolve(__dirname, file)
 var config = {
   entry: {
-    pages: './src',
+    pages: [resolve('./src'), resolve('./index.css')],
     element: ["element-ui", resolve("./theme/index.css")]
   },
   output:  {

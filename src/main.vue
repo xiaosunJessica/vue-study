@@ -9,7 +9,7 @@
 <template>
   <div class="wrapper">
     <el-row class="wrapper_header" type="flex" justify="space-between">
-      <el-col :span="4">
+      <el-col :span="3">
         <div class="logo">
           
           <span>壹二商品订单中心</span>
@@ -35,20 +35,30 @@
             <el-menu-item index="OrderList">
               <router-link class="menu_link" :to="{ name: 'OrderList' }">全部订单</router-link>
             </el-menu-item>
-            <el-menu-item index="1-2">left1-2</el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link class="menu_link" :to="{ name: 'OrderList' }">售后工单</router-link>
+            </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="2-1">left2-1</el-menu-item>
-            <el-menu-item index="2-2">left2-2</el-menu-item>
+          <el-menu-item-group title="商品">
+            <el-menu-item index="2-1">
+              <router-link class="menu_link" :to="{ name: 'OrderList' }">全部商品</router-link>
+            </el-menu-item>
+            <el-menu-item index="2-2">
+              <router-link class="menu_link" :to="{ name: 'OrderList' }">品牌管理</router-link>
+            </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="分组3">
-            <el-menu-item index="3-1">left3-1</el-menu-item>
-            <el-menu-item index="3-2">left3-2</el-menu-item>
+          <el-menu-item-group title="商户">
+            <el-menu-item index="3-1">
+              <router-link class="menu_link" :to="{ name: 'OrderList' }">商户管理</router-link>
+            </el-menu-item>
           </el-menu-item-group>
         </el-menu>
       </el-col>
       <el-col :span="20" class="container" ref="container">
-        right
+        <router-view></router-view>
+        <div class="container_footer">
+          <mark>Powered by</mark>壹二 @2016-2017 All rights reserved.
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -82,6 +92,22 @@
         .menu {
           background: #222d32;
           color: #FFFFFF;
+          .menu_link {
+            color: #FFFFFF;
+            text-decoration: none;
+          }
+        }
+      }
+      .container {
+        background: #FFFFFF;
+        position: relative;
+        .container_footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 60px;
+          border-top: 1px solid #CCCCCC;
+          background: #F5F7FA;
         }
       }
     }
