@@ -29,4 +29,4 @@ compiler.plugin('compilation', function (compilation) {
 
 app.use(history())
 app.use(devMiddleware)
-app.listen(8080)
+app.listen(8082)

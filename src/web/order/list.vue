@@ -1,5 +1,7 @@
 <script>
-  import { getOrders } from '../../action/order';
+  // import { getOrders } from './action.js';
+  import { mapState, mapMutations } from 'vuex';
+  // import { actionTypes as orderActions } from './store.js'
   export default {
     data() {
       return {
@@ -11,7 +13,7 @@
           createdAtFrom: undefined,
           createdAtTo: undefined
         },
-        orders: null
+        orders: {}
       }
     },
 
@@ -21,6 +23,10 @@
     },
 
     methods: {
+      ...mapMutations({
+        getOrders: 'GET_ORDER'
+      }),
+
       changeRoute() {
         this.$router.push({
           name: 'OrderList',
@@ -32,20 +38,28 @@
         this.changeRoute()
       },
 
-      onSubmit() {
+      async onSubmit() {
         this.query.page = 1;
         this.changeRoute()
+        console.warn(this.order)
+        await this.$store.dispatch('GET_ORDER')
       },
 
       async fetchData() {
-        console.warn(this.$route.query)
         let { status = 'all', page = 1, orderId, cellNumber, createdAtFrom, createdAtTo } = this.$route.query;
         this.query = { status, page, orderId, cellNumber, createdAtFrom, createdAtTo };
-        this.orders = await getOrders(this.query)
-        console.warn(this.orders, '===========')
+        // await this.$store.dispatch()
       }
+    },
+
+    computed: {
+      ...mapState({
+        order: state => {console.log(state.order, 'state--', state.order.page); return state.order}
+      })
     }
-  }
+   
+
+ }
 </script>
 
 <template>
@@ -78,11 +92,11 @@
     </el-form>
 
     <div v-if="orders">
-      <el-table>
-        <el-table-column width="90px" label="状态"></el-table-column>
+      <el-table :data="orders.list">
+        <el-table-column width="90px" label="状态" prop="status"></el-table-column>
         <el-table-column width="200px" label="订单号"></el-table-column>
         <el-table-column width="100px" label="客户"></el-table-column>
-        <el-table-column width="130px" label="手机号"></el-table-column>
+        <el-table-column width="130px" label="手机号" prop="cellNumber"></el-table-column>
         <el-table-column label="商品"></el-table-column>
         <el-table-column width="100px" label="订单金额"></el-table-column>
         <el-table-column width="180px" label="订单时间"></el-table-column>
