@@ -3,6 +3,8 @@
 + 自定义主题
 
     按照官网链接：http://element.eleme.io/#/zh-CN/component/custom-theme
++ eslint使用
+    按照链接： http://eslint.cn/docs/user-guide/getting-started
 
 + 开发过程遇到的问题
   

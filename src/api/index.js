@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
@@ -9,12 +9,12 @@ const store = new Vuex.Store({
   },
   mutations: {
     increment (state) {
-      state.count++
+      state.count++;
     }
   },
   actions: {
     increment (context) {
-      context.commit('increment')
+      context.commit('increment');
     }
   }
-})
+});
