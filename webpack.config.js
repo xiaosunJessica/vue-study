@@ -1,15 +1,15 @@
-var webpack = require('webpack')
-var path = require('path')
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CleanWebpackPlugin = require('clean-webpack-plugin')
+// var webpack = require('webpack');
+var path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+// var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const resolve = (file) => path.resolve(__dirname, file)
+const resolve = (file) => path.resolve(__dirname, file);
 
 var config = {
   entry: {
     pages: [resolve('./src/client'), resolve('./index.css')],
-    element: ["element-ui", resolve("./theme/index.css")]
+    element: ['element-ui', resolve('./theme/index.css')]
   },
   output:  {
     filename: '[name].bundle.js',
@@ -24,7 +24,7 @@ var config = {
   module: {
     loaders: [{
       test: /\.vue$/,
-      loader: "vue-loader",
+      loader: 'vue-loader',
       options: {
         scss: 'style-loader!css-loader!sass-loader',
         sass: 'style-loader!css-loader!sass-loader?indentedSyntax'
@@ -37,21 +37,21 @@ var config = {
       test: /\.scss$/,
       loader: ['css-loader', 'postcss-loader', 'sass-loader'],
     },{
-        test: /\.(jpg|png|gif)$/,
-        loader: "file-loader",
-        options: {
-            name: "images/[hash].[ext]"
-        },
-        exclude: /node_modules/
+      test: /\.(jpg|png|gif)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'images/[hash].[ext]'
       },
-      {
-        test: /\.(svg|eot|ttf|woff|woff2)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'fonts/[hash].[ext]'
-        },
-        exclude: /node_modules/
-      }]
+      exclude: /node_modules/
+    },
+    {
+      test: /\.(svg|eot|ttf|woff|woff2)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'fonts/[hash].[ext]'
+      },
+      exclude: /node_modules/
+    }]
   },
 
   plugins: [
@@ -63,8 +63,8 @@ var config = {
       chunks: ['pages', 'element']
     }),
 
-    new ExtractTextPlugin("style.[name].[hash].css")
+    new ExtractTextPlugin('style.[name].[hash].css')
   ]
-}
+};
 
-module.exports = config
+module.exports = config;

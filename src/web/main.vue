@@ -9,7 +9,7 @@
 <template>
   <div class="wrapper">
     <el-row class="wrapper_header" type="flex" justify="space-between">
-      <el-col :span="3">
+      <el-col :span="4">
         <div class="logo">
           <span>壹二商品订单中心</span>
         </div>
@@ -54,7 +54,7 @@
         </el-menu>
       </el-col>
       <el-col :span="20" class="container" ref="container">
-        <router-view></router-view>
+        <router-view class="container_content"></router-view>
         <div class="container_footer">
           <mark>Powered by</mark>壹二 @2016-2017 All rights reserved.
         </div>
@@ -101,6 +101,9 @@
       .container {
         background: #FFFFFF;
         position: relative;
+        .container_content {
+          padding: 20px 60px;
+        }
         .container_footer {
           position: absolute;
           bottom: 0;

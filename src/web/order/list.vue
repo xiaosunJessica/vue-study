@@ -1,8 +1,13 @@
 <script>
-  // import { getOrders } from './action.js';
+  import getOrdersAPI from '../../api/order.js';
   import { mapState, mapMutations } from 'vuex';
+  import OrderStatus from './components/order-status.vue';
   // import { actionTypes as orderActions } from './store.js'
   export default {
+    components: {
+      OrderStatus
+    },
+
     data() {
       return {
         query: {
@@ -12,14 +17,18 @@
           cellNumber: undefined,
           createdAtFrom: undefined,
           createdAtTo: undefined
-        },
-        orders: {}
+        }
       }
+    },
+
+    computed: {
+      ...mapState({
+        orders: state => state.order.order
+      })
     },
 
     async mounted() {
       await this.fetchData();
-      console.warn('mounted----orderlist')
     },
 
     methods: {
@@ -41,24 +50,15 @@
       async onSubmit() {
         this.query.page = 1;
         this.changeRoute()
-        console.warn(this.order)
         await this.$store.dispatch('GET_ORDER')
       },
 
       async fetchData() {
         let { status = 'all', page = 1, orderId, cellNumber, createdAtFrom, createdAtTo } = this.$route.query;
         this.query = { status, page, orderId, cellNumber, createdAtFrom, createdAtTo };
-        // await this.$store.dispatch()
+        // this.orders = getOrdersAPI();
       }
     },
-
-    computed: {
-      ...mapState({
-        order: state => {console.log(state.order, 'state--', state.order.page); return state.order}
-      })
-    }
-   
-
  }
 </script>
 
@@ -93,18 +93,41 @@
 
     <div v-if="orders">
       <el-table :data="orders.list">
-        <el-table-column width="90px" label="状态" prop="status"></el-table-column>
-        <el-table-column width="200px" label="订单号"></el-table-column>
-        <el-table-column width="100px" label="客户"></el-table-column>
+        <el-table-column width="90px" label="状态">
+          <template scope="scope">
+            <order-status :order="scope.row"></order-status>
+          </template>
+        </el-table-column>
+        <el-table-column width="200px" label="订单号">
+          <template scope="scope">
+            <router-link :to="{name: 'OrderDetail', params: {id: scope.row.id}}">
+              {{scope.row.id}}
+            </router-link>
+          </template>
+        </el-table-column>
+        <el-table-column width="100px" label="客户" prop="shippingAddress.recipient"></el-table-column>
         <el-table-column width="130px" label="手机号" prop="cellNumber"></el-table-column>
-        <el-table-column label="商品"></el-table-column>
-        <el-table-column width="100px" label="订单金额"></el-table-column>
-        <el-table-column width="180px" label="订单时间"></el-table-column>
-        <el-table-column width="100px" label="操作"></el-table-column>
+        <el-table-column label="商品" prop="brief"></el-table-column>
+        <el-table-column width="100px" label="订单金额" prop="totalPrice"></el-table-column>
+        <el-table-column width="200px" label="订单时间">
+          <template scope="scope">{{scope.row.createdAt | datetime}}</template>
+        </el-table-column>
+        <el-table-column width="100px" label="操作">
+          <template scope="scope">
+            <router-link :to="{name: 'OrderDetail', params: {id: scope.row.id}}">
+              查看
+            </router-link>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+  a {
+    text-decoration: none;
+    color: #005680;
+    transition: .1s;
+  }
 </style>

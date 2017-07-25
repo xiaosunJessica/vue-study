@@ -13,7 +13,9 @@
 3. 刷新界面，出现404的错误。原因是spa方式，其路由是虚拟的，需要将请求只想index,我才用connect-history-api-fallback方式
 <https://router.vuejs.org/zh-cn/essentials/history-mode.html>
 4. mounted输出没值，是因为没有通过export default
-
+5. scope.row, scope, slot： scope.row在element-ui的“自定义列模板”中有介绍,
+6. store数据变化computed没有执行: 自己写错了order改为orders, mapState书写过，data不用再写
+7. filter ==> install(Vue) =>>vue.use()
 
 
 
